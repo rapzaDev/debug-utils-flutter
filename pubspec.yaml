@@ -1,0 +1,23 @@
+name: debug_utils
+description: >
+  A lightweight and extensible debugging utility for Flutter apps.
+  Includes log levels, timestamps, tags, and only runs in debug mode for safety in production.
+
+version: 0.0.1
+homepage: https://github.com/rapzaDev
+repository: https://github.com/rapzaDev/debug-utils-flutter
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^3.0.0
+
+flutter:
+  uses-material-design: false
