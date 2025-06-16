@@ -112,7 +112,7 @@ Logs are only printed when the app is running in debug mode. Nothing will appear
 
 ## About the Author
 
-Built by [Rafael Arango](https://www.linkedin.com/in/rafaelarango), Flutter developer focused on clean architecture, reusable code and productivity tools for modern app teams.
+Built by [Rafael Arango Pérez](https://www.linkedin.com/in/rapzadev/), Flutter developer focused on clean architecture, reusable code and productivity tools for modern app teams.
 
 Feel free to fork or contribute. If you are hiring Flutter engineers or looking to build powerful mobile apps, let’s connect on LinkedIn.
 
