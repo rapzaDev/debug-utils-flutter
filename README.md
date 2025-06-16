@@ -69,11 +69,13 @@ Each log entry is constructed with:
 ```
 debug-utils-flutter/
 ├── lib/
-│   └── debug_utils.dart
-├── example/
+│   └── example/
+│       └── debug_utils.dart
 │   └── main.dart
-├── pubspec.yaml
+├── analysis_options.yaml
 ├── .gitignore
+├── pubspec.lock
+├── pubspec.yaml
 └── README.md
 ```
 
