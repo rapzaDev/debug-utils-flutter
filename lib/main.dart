@@ -5,20 +5,35 @@ void main() {
   runApp(MyApp());
 }
 
+/// Main app widget demonstrating usage of DebugLoggerService.
+/// Logs messages with various levels and tags, including a breakpoint example.
+/// View logs in IDE console or terminal during debug runs.
 class MyApp extends StatelessWidget {
+  final logger = DebugLoggerService();
+
+  // Logs an error message and pauses execution in debug mode.
+  late final void Function() logError = () => logger.log(
+        'Failed to load user profile',
+        breakPoint: true,
+        level: LogLevel.error,
+        tag: 'UserModule',
+      );
+
   MyApp({super.key}) {
-    DebugUtils.debugLog('User started checkout process', level: LogLevel.info);
-
-    DebugUtils.debugLog('Cart contains 3 items');
-
-    DebugUtils.debugLog(
-      'Failed to load user profile',
-      level: LogLevel.error,
-      tag: 'UserModule',
+    logger.log(
+      'User started checkout process',
+      level: LogLevel.info,
     );
+
+    logger.log(
+      'Cart contains 3 items',
+      level: LogLevel.debug,
+      tag: 'CartModule',
+    );
+
+    logError();
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,9 +51,9 @@ class MyDebugger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(child: Text('Open your IDE console to see logs')),
+    return const Scaffold(
+      body: Center(
+        child: Text('Open your IDE console to see logs'),
       ),
     );
   }
