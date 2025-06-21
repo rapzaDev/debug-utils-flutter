@@ -1,6 +1,6 @@
 # DebugUtils for Flutter 🐞
 
-A lightweight and flexible debug utility created to improve logging in Flutter app development.
+A lightweight and flexible debug utility to improve logging in Flutter app development.
 
 With DebugUtils, it becomes easier to trace, categorize, and manage debug messages while ensuring they only run in debug mode. This keeps production builds clean and safe.
 
@@ -8,59 +8,65 @@ With DebugUtils, it becomes easier to trace, categorize, and manage debug messag
 
 ## What It Does
 
-- Logs only when the app is running in debug mode
-- Offers multiple log levels: info, warning, error, debug
-- Includes ISO timestamps for better traceability
-- Supports custom tags to give context to logs
-- Uses dart:developer to integrate with IDE logging tools
+- Logs only when the app is running in debug mode  
+- Offers multiple log levels: info, warning, error, debug  
+- Includes ISO timestamps for better traceability  
+- Supports custom tags to give context to logs  
+- Integrates with `dart:developer` for IDE console visibility  
+- Provides a service layer (`DebugLoggerService`) for easy injection and testing  
 
 ---
 
 ## Why Use It
 
-Logging is essential when debugging features in mobile apps. This utility helps you:
+Logging is essential during development. DebugUtils helps you:
 
-- Track important events with clear severity levels
-- Add tags to identify the source or module
-- Avoid scattered print statements across the code
-- Keep logs well-structured and easy to read
+- Track app behavior with consistent log formatting  
+- Use severity levels and tags to quickly identify issues  
+- Replace scattered `print()` statements with structured logs  
+- Pause execution using breakpoints for deep debugging (`breakPoint: true`)  
 
 ---
 
 ## Quick Example
 
 ```dart
-DebugUtils.debugLog('User started checkout process', level: LogLevel.info);
+final logger = DebugLoggerService();
 
-DebugUtils.debugLog('Cart contains 3 items');
+logger.log('User started checkout process', level: LogLevel.info);
 
-DebugUtils.debugLog(
+logger.log('Cart contains 3 items', level: LogLevel.debug, tag: 'CartModule');
+
+logger.log(
   'Failed to load user profile',
   level: LogLevel.error,
+  breakPoint: true,
   tag: 'UserModule',
 );
 ```
 
-### Expected output in the debug console:
+### Output in the debug console:
 
 ```
-[2025-06-16T12:45:00.123Z][INFO] User started checkout process
-[2025-06-16T12:45:01.456Z][DEBUG] Cart contains 3 items
-[2025-06-16T12:45:02.789Z][ERROR] Failed to load user profile
+[2025-06-21T12:45:00.123Z][INFO] User started checkout process  
+[2025-06-21T12:45:01.456Z][DEBUG] Cart contains 3 items  
+[2025-06-21T12:45:02.789Z][ERROR] Failed to load user profile  
 ```
 
 ---
 
 ## How It Works
 
-This utility uses Dart’s `assert(() { ... return true; }());` to ensure logs are only executed in debug mode. In release or profile mode, it remains silent.
+This utility uses Dart’s `assert(() { ... return true; }());` to ensure logs only execute in debug mode.
 
-Each log entry is constructed with:
+Each log entry includes:
 
-- ISO 8601 timestamp
-- Log level in uppercase
-- Optional custom tag for context
-- Native integration with dart:developer
+- ISO 8601 timestamp  
+- Log level in uppercase  
+- Optional tag for categorization  
+- Native integration with `dart:developer` for filtering in IDEs like VS Code or Android Studio  
+
+If `breakPoint: true` is set, execution will pause using `debugger()` — useful for setting logical breakpoints in code.
 
 ---
 
@@ -70,11 +76,9 @@ Each log entry is constructed with:
 debug-utils-flutter/
 ├── lib/
 │   └── example/
-│       └── debug_utils.dart
-│   └── main.dart
+│       └── debug_utils.dart      # Core logging utility
+│   └── main.dart                 # Example app
 ├── analysis_options.yaml
-├── .gitignore
-├── pubspec.lock
 ├── pubspec.yaml
 └── README.md
 ```
@@ -83,13 +87,11 @@ debug-utils-flutter/
 
 ## How to Run
 
-To try it on your local machine:
-
 ### Step 1: Clone the repository
 
 ```bash
 git clone https://github.com/rafaelarango/debug-utils-flutter.git
-cd debug-utils
+cd debug-utils-flutter
 ```
 
 ### Step 2: Get dependencies
@@ -98,26 +100,25 @@ cd debug-utils
 flutter pub get
 ```
 
-### Step 3: Run the example
+### Step 3: Run the example app
 
 ```bash
 flutter run
 ```
 
-The app will start and print logs to your debug console. Open the IDE console or terminal to view them.
-
-Logs are only printed when the app is running in debug mode. Nothing will appear in release builds.
+You’ll see the logs in your IDE’s debug console.  
+**Note:** Logs only appear in debug mode.
 
 ---
 
 ## About the Author
 
-Built by [Rafael Arango Pérez](https://www.linkedin.com/in/rapzadev/), Flutter developer focused on clean architecture, reusable code and productivity tools for modern app teams.
+Built by [Rafael Arango Pérez](https://www.linkedin.com/in/rapzadev/), Flutter developer focused on clean architecture, reusable code, and tools that boost productivity for mobile teams.
 
-Feel free to fork or contribute. If you are hiring Flutter engineers or looking to build powerful mobile apps, let’s connect on LinkedIn.
+Fork, use, or contribute! If you're building powerful apps or hiring Flutter engineers, feel free to connect.
 
 ---
 
 ## License
 
-MIT License. See the LICENSE file for details.
+MIT License. See the [LICENSE](LICENSE) file for details.
