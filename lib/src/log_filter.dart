@@ -7,12 +7,12 @@
 // License: MIT
 // -----------------------------------------------------------------------------
 
+import 'package:debug_utils/src/logger_interfaces.dart';
 import 'package:debug_utils/src/log_level.dart';
 
-/// Encapsulates runtime filter state; copies sets to avoid external mutation.
-class LogFilter {
+class LogFilter implements ILogFilter {
   LogLevel _minLevel;
-  Set<String> _enabledTags;
+  final Set<String> _enabledTags;
 
   LogFilter({
     LogLevel minLevel = LogLevel.trace,
@@ -20,14 +20,15 @@ class LogFilter {
   })  : _minLevel = minLevel,
         _enabledTags = enabledTags != null ? Set.from(enabledTags) : <String>{};
 
-  LogLevel get minLevel => _minLevel;
-  Set<String> get enabledTags => Set.unmodifiable(_enabledTags);
-
   void configure({LogLevel? minLevel, Set<String>? enabledTags}) {
     if (minLevel != null) _minLevel = minLevel;
-    if (enabledTags != null) _enabledTags = Set.from(enabledTags);
+    if (enabledTags != null) {
+      _enabledTags.clear();
+      _enabledTags.addAll(enabledTags);
+    }
   }
 
+  @override
   bool shouldLog(LogLevel level, String? tag) {
     if (level.priority < _minLevel.priority) return false;
     return _enabledTags.isEmpty

@@ -18,9 +18,7 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
+# VS Code configs (optional, uncomment if want to track)
 #.vscode/
 
 # Flutter/Dart/Pub related
@@ -39,10 +37,34 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android Studio build outputs
 /android/app/debug
 /android/app/profile
 /android/app/release
 
-
 .metadata
+
+# Ignore everything in root except these files/folders
+/*
+
+# Include root files
+!pubspec.yaml
+!README.md
+!LICENSE
+!CHANGELOG.md
+!analysis_options.yaml
+
+# Include folders you want in package
+!lib/
+!example/
+
+# Inside example, ignore build and platform-specific files
+example/android/app/build.gradle.kts
+example/android/app/src/debug/**
+example/android/app/src/main/kotlin/**
+example/android/app/src/main/res/**
+example/ios/**
+example/build/
+example/.dart_tool/
+example/.idea/
+example/.gitignore

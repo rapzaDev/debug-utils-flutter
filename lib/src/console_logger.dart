@@ -10,60 +10,19 @@
 // License: MIT
 // -----------------------------------------------------------------------------
 
-import 'dart:developer' as dev;
-
-import 'package:debug_utils/src/caller_info_extractor.dart';
 import 'package:debug_utils/src/log_formatter.dart';
-import 'package:debug_utils/src/log_level.dart';
 import 'package:debug_utils/src/logger_interfaces.dart';
-import 'package:debug_utils/src/timestamp_provider.dart';
 
-/// Logger writing to dev.log; supports breakpoint.
-class ConsoleLogger implements IDebugLogger {
-  final List<String> excludeMembers;
+class ConsoleLogger implements ILogger {
+  final ILogFormatter _formatter;
 
-  ConsoleLogger({
-    this.excludeMembers = const [
-      'log',
-      'debug',
-      'info',
-      'warning',
-      'error',
-      'trace',
-      'breakpoint'
-    ],
-  });
+  ConsoleLogger({ILogFormatter? formatter})
+      : _formatter = formatter ?? DefaultLogFormatter();
 
   @override
-  void log(
-    String message, {
-    required LogLevel level,
-    String? tag,
-    Object? errObj,
-    StackTrace? stackTrace,
-    Map<String, Object?>? context,
-  }) {
-    final caller = CallerInfoExtractor.extract(
-      stackTrace,
-      excludeMembers: excludeMembers,
-      enableCallerInfo: stackTrace != null,
-    );
-    final formatted = defaultLogFormatter(
-      level: level,
-      message: message,
-      caller: caller,
-      timestamp: defaultTimestampProvider(),
-      context: context,
-    );
-    dev.log(
-      formatted,
-      name: tag ?? '',
-      error: errObj,
-      stackTrace: stackTrace,
-      level: level.priority,
-    );
+  void log(LogEntry entry) {
+    final formatted = _formatter.format(entry);
+    // Use print ou debugPrint conforme preferir
+    print(formatted);
   }
-
-  @override
-  void breakpoint() => dev.debugger();
 }

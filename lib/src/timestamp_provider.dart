@@ -9,8 +9,9 @@
 // License: MIT
 // -----------------------------------------------------------------------------
 
-/// Timestamp provider type for injection/tests.
-typedef TimestampProvider = String Function();
+import 'package:debug_utils/src/logger_interfaces.dart';
 
-/// Default ISO 8601 timestamp provider.
-String defaultTimestampProvider() => DateTime.now().toIso8601String();
+class DefaultTimestampProvider implements ITimestampProvider {
+  @override
+  String get currentTimestamp => DateTime.now().toIso8601String();
+}

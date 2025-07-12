@@ -1,123 +1,134 @@
-# DebugUtils for Flutter 🐞
 
-A lightweight and flexible debug utility created to improve logging in Flutter app development.
+# debug_utils - DebugUtils for Flutter 🐞
 
-With DebugUtils, it becomes easier to trace, categorize, and manage debug messages while ensuring they only run in debug mode. This keeps production builds clean and safe.
-
----
-
-## What It Does
-
-- Logs only when the app is running in debug mode
-- Offers multiple log levels: info, warning, error, debug
-- Includes ISO timestamps for better traceability
-- Supports custom tags to give context to logs
-- Uses dart:developer to integrate with IDE logging tools
+Lightweight, flexible logging utility for Flutter, engineered to make your debug logs clean, powerful, and context-rich without polluting production builds.
 
 ---
 
-## Why Use It
+## 🚀 Features
 
-Logging is essential when debugging features in mobile apps. This utility helps you:
-
-- Track important events with clear severity levels
-- Add tags to identify the source or module
-- Avoid scattered print statements across the code
-- Keep logs well-structured and easy to read
-
----
-
-## Quick Example
-
-```dart
-DebugUtils.debugLog('User started checkout process', level: LogLevel.info);
-
-DebugUtils.debugLog('Cart contains 3 items');
-
-DebugUtils.debugLog(
-  'Failed to load user profile',
-  level: LogLevel.error,
-  tag: 'UserModule',
-);
-```
-
-### Expected output in the debug console:
-
-```
-[2025-06-16T12:45:00.123Z][INFO] User started checkout process
-[2025-06-16T12:45:01.456Z][DEBUG] Cart contains 3 items
-[2025-06-16T12:45:02.789Z][ERROR] Failed to load user profile
-```
+- Logs **only** in debug mode ( zero overhead in release )
+- Multiple log levels: `debug`, `info`, `warning`, `error`
+- ISO 8601 timestamps for easy tracing
+- Support for custom tags to organize logs by modules or features
+- Integrates with `dart:developer` for IDE-friendly debugging
+- Easily extendable with custom loggers and formatters
 
 ---
 
-## How It Works
+## 📦 Installation
 
-This utility uses Dart’s `assert(() { ... return true; }());` to ensure logs are only executed in debug mode. In release or profile mode, it remains silent.
+Add the latest version to your `pubspec.yaml`:
 
-Each log entry is constructed with:
-
-- ISO 8601 timestamp
-- Log level in uppercase
-- Optional custom tag for context
-- Native integration with dart:developer
-
----
-
-## Project Structure
-
-```
-debug-utils-flutter/
-├── lib/
-│   └── example/
-│       └── debug_utils.dart
-│   └── main.dart
-├── analysis_options.yaml
-├── .gitignore
-├── pubspec.lock
-├── pubspec.yaml
-└── README.md
+```yaml
+dependencies:
+  debug_utils: ^<latest_version>
 ```
 
----
-
-## How to Run
-
-To try it on your local machine:
-
-### Step 1: Clone the repository
-
-```bash
-git clone https://github.com/rafaelarango/debug-utils-flutter.git
-cd debug-utils
-```
-
-### Step 2: Get dependencies
+Then run:
 
 ```bash
 flutter pub get
 ```
 
-### Step 3: Run the example
+---
 
-```bash
-flutter run
+## ⚡ Quick Start
+
+Initialize the logger early in your app, ideally in `main()`:
+
+```dart
+import 'package:debug_utils/debug_utils.dart';
+
+void main() {
+  AppLoggerPro.init(forceDebugMode: true);
+  runApp(MyApp());
+}
 ```
 
-The app will start and print logs to your debug console. Open the IDE console or terminal to view them.
+Use it anywhere to log messages with different severities:
 
-Logs are only printed when the app is running in debug mode. Nothing will appear in release builds.
+```dart
+AppLoggerPro.instance.info('User started checkout process');
+
+AppLoggerPro.instance.debug('Cart contains 3 items');
+
+AppLoggerPro.instance.error(
+  'Failed to load user profile',
+  tag: 'UserModule',
+);
+```
+
+**Expected output in debug console:**
+
+```
+[2025-07-12T12:45:00.123Z][INFO] User started checkout process
+[2025-07-12T12:45:01.456Z][DEBUG] Cart contains 3 items
+[2025-07-12T12:45:02.789Z][ERROR][UserModule] Failed to load user profile
+```
 
 ---
 
-## About the Author
+## 🎯 Why Choose debug_utils?
 
-Built by [Rafael Arango Pérez](https://www.linkedin.com/in/rapzadev/), Flutter developer focused on clean architecture, reusable code and productivity tools for modern app teams.
-
-Feel free to fork or contribute. If you are hiring Flutter engineers or looking to build powerful mobile apps, let’s connect on LinkedIn.
+- **Zero noise in production:** Logs only appear in debug builds.
+- **Structured & searchable:** ISO timestamps and tags make filtering simple.
+- **Highly configurable:** Customize filters, formatters, and add your own loggers.
+- **IDE integration:** Logs appear in DevTools and IDE consoles smoothly.
+- **Lightweight:** Minimal dependencies, easy to integrate in any Flutter app.
 
 ---
 
-## License
+## 🧰 Advanced Usage
 
-MIT License. See the LICENSE file for details.
+You can provide a custom log filter to control which logs are emitted:
+
+```dart
+AppLoggerPro.init(
+  forceDebugMode: true,
+  logFilter: LogFilter(
+    minLevel: LogLevel.warning,
+    enabledTags: {'Network', 'Auth'},
+  ),
+);
+```
+
+Combine multiple loggers for advanced scenarios:
+
+```dart
+final multiLogger = MultiLogger([
+  ConsoleLogger(),
+  FileLogger(path: '/logs/app.log'), // hypothetical file logger
+]);
+
+AppLoggerPro.init(
+  forceDebugMode: true,
+  debugLogger: multiLogger,
+);
+```
+
+---
+
+## 🧪 Testing
+
+The package includes comprehensive unit tests covering initialization, log filtering, formatting, and multi-logger behavior. Ensure you run:
+
+```bash
+flutter test
+```
+
+before publishing.
+
+---
+
+## 🧑‍💻 About the Author
+
+Created by [Rafael Arango Pérez](https://www.linkedin.com/in/rapzadev/), a Flutter engineer specializing in clean architecture, scalable mobile solutions, and developer productivity tools.
+
+Feel free to contribute or reach out on LinkedIn.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -1,3 +1,4 @@
+// lib/src/logger_interfaces.dart
 // -----------------------------------------------------------------------------
 // Author: Rafael Perez (@rapzaDev)
 //
@@ -13,19 +14,48 @@
 
 import 'package:debug_utils/src/log_level.dart';
 
-/// Interface for general loggers (without breakpoint).
 abstract class ILogger {
-  void log(
-    String message, {
-    required LogLevel level,
-    String? tag,
-    Object? errObj,
-    StackTrace? stackTrace,
-    Map<String, Object?>? context,
-  });
+  void log(LogEntry entry);
 }
 
-/// Interface for loggers that support breakpoint (debuggers).
 abstract class IDebugLogger implements ILogger {
   void breakpoint();
+}
+
+abstract class ILogFormatter {
+  String format(LogEntry entry);
+}
+
+abstract class ITimestampProvider {
+  String get currentTimestamp;
+}
+
+abstract class ICallerInfoExtractor {
+  String? extract(StackTrace stackTrace);
+}
+
+abstract class ILogFilter {
+  bool shouldLog(LogLevel level, String? tag);
+}
+
+class LogEntry {
+  final LogLevel level;
+  final String message;
+  final String? tag;
+  final Object? errObj;
+  final StackTrace? stackTrace;
+  final Map<String, Object?>? context;
+  final String caller;
+  final String timestamp;
+
+  const LogEntry({
+    required this.level,
+    required this.message,
+    this.tag,
+    this.errObj,
+    this.stackTrace,
+    this.context,
+    required this.caller,
+    required this.timestamp,
+  });
 }
