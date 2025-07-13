@@ -1,5 +1,5 @@
-
 # debug_utils - DebugUtils for Flutter 🐞
+
 
 Lightweight, flexible logging utility for Flutter, engineered to make your debug logs clean, powerful, and context-rich without polluting production builds.
 
@@ -7,12 +7,14 @@ Lightweight, flexible logging utility for Flutter, engineered to make your debug
 
 ## 🚀 Features
 
+
 - Logs **only** in debug mode ( zero overhead in release )
 - Multiple log levels: `debug`, `info`, `warning`, `error`
 - ISO 8601 timestamps for easy tracing
 - Support for custom tags to organize logs by modules or features
 - Integrates with `dart:developer` for IDE-friendly debugging
 - Easily extendable with custom loggers and formatters
+
 
 ---
 
