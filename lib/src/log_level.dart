@@ -1,14 +1,12 @@
 // -----------------------------------------------------------------------------
 // Author: Rafael Perez (@rapzaDev)
-//
-// Description:
-// Defines log levels and their priorities for structured logging in Dart applications.
-//
+// Description: Defines log levels and their priorities for structured logging
+// in Dart applications.
 // Repository: https://github.com/rapzaDev/debug-utils-flutter
 // License: MIT
 // -----------------------------------------------------------------------------
 
-/// Log levels with standard priority scale.
+/// Enumeration representing log levels with a standard priority scale.
 enum LogLevel {
   trace,
   debug,
@@ -19,7 +17,10 @@ enum LogLevel {
   verbose,
 }
 
+/// Extension providing utility methods for the [LogLevel] enum.
 extension LogLevelExtension on LogLevel {
+  /// Returns the numerical priority of the log level, where higher values
+  /// indicate greater severity (0 for trace, 6 for verbose).
   int get priority {
     switch (this) {
       case LogLevel.trace:
@@ -39,6 +40,7 @@ extension LogLevelExtension on LogLevel {
     }
   }
 
+  /// Returns the textual label corresponding to the log level in uppercase.
   String get label {
     switch (this) {
       case LogLevel.trace:

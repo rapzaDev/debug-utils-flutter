@@ -1,11 +1,10 @@
 name: debug_utils
 description: A professional, testable, and extensible logging utility for Flutter apps.
 version: 1.0.0
-documentation: https://github.com/rapzaDev/debug-utils-flutter#readme
 homepage: https://github.com/rapzaDev/debug-utils-flutter
-issue_tracker: https://github.com/rapzaDev/debug-utils-flutter/issues
 repository: https://github.com/rapzaDev/debug-utils-flutter
-license: MIT
+issue_tracker: https://github.com/rapzaDev/debug-utils-flutter/issues
+documentation: https://github.com/rapzaDev/debug-utils-flutter/blob/main/README.md
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -19,6 +18,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^2.0.0  # Recomendo a versão mais recente do lints
+  lints: ^2.0.0
 
-
+license: MIT
