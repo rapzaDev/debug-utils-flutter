@@ -21,6 +21,4 @@ dev_dependencies:
     sdk: flutter
   lints: ^2.0.0  # Recomendo a versão mais recente do lints
 
-publish_to: 'https://pub.dev' 
-
 
