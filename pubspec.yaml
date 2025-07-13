@@ -1,6 +1,6 @@
 name: debug_utils
 description: A professional, testable, and extensible logging utility for Flutter apps.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/rapzaDev/debug-utils-flutter
 repository: https://github.com/rapzaDev/debug-utils-flutter
 issue_tracker: https://github.com/rapzaDev/debug-utils-flutter/issues
